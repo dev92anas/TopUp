@@ -29,7 +29,7 @@ namespace SecurityService.API.Controllers
         {
             var user = await _userService.AuthenticateAsync(model.Username, model.Password);
             if (user == null)
-                throw new Exception("Username Or password is incorrect!"); 
+                throw new Exception("Username Or password is incorrect!");  
 
             var token = GenerateJwtToken(user);
 
