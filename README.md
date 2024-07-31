@@ -59,6 +59,7 @@ Select Build Solution.
 
 7. **Run the Application**
 Set multiple startup projects (TopUpService.API, BalanceService.API, SecurityService.API, ApiGateway) by right-clicking the solution and selecting Proprties and update the multiple startup projects.
+
 Press F5 to run the application.
 Ensure that all services (TopUpService, BalanceService, SecurityService, APIGateway) are running together.
 
