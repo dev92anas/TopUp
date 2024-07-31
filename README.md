@@ -1,6 +1,6 @@
 # TopUp Project Technical Documentation
 
-![image](https://github.com/user-attachments/assets/2e8f4b40-1b0b-44e5-b5a9-f0d17a51b87d)
+![image](https://github.com/user-attachments/assets/dae3e4f9-12f3-4641-9426-ef74daa6c025)
 
 
 ## Overview
@@ -43,15 +43,14 @@ To build and run the project using Visual Studio 2022, follow these steps:
 
 3. **Open Visual Studio 2022**
 Go to File > Open > Project/Solution.
-Navigate to the cloned repository folder and open the solutions file.
+Navigate to the cloned repository folder and open the solution file.
 
 4. **Restore NuGet Packages**
 Right-click on the solution in the Solution Explorer.
 Select Restore NuGet Packages.
-for each Solution (TopUpService, BalanceService, SecurityService, APIGateway)
 
 5. **Update Connection Strings**
-Open the appsettings.json file for each service solution project (TopUpService, BalanceService, SecurityService).
+Open the appsettings.json file for each service solution project (TopUpService.API, BalanceService.API, SecurityService.API).
 Replace the connection strings with the ones provided in the attachment.
 
 6. **Build the Solution**
@@ -59,7 +58,7 @@ Right-click on the solution in the Solution Explorer.
 Select Build Solution.
 
 7. **Run the Application**
-Set the desired startup project (e.g., *****.API) by right-clicking the project and selecting Set as StartUp Project.
+Set multiple startup projects (TopUpService.API, BalanceService.API, SecurityService.API, ApiGateway) by right-clicking the solution and selecting Proprties and update the multiple startup projects.
 Press F5 to run the application.
 Ensure that all services (TopUpService, BalanceService, SecurityService, APIGateway) are running together.
 
