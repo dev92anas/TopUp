@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "4pxjYSuZ7TwzHOpF62NeJhwlIY0huPcAQzvNgO8dlsU=",
+  "Source": "BalanceService.API",
+  "BasePath": "_content/BalanceService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "7a42041b-934c-41d0-8db0-986cd9d34b17",
+		"name": "TopUp Application",
+		"description": "Steps to Use the API\n\n1\\. Authenticate: Use the SecurityAPI to obtain a JWT token by logging in.\n\n2\\. Add a Beneficiary: Use the AddBeneficiary endpoint to add a new beneficiary.\n\n3\\. Get Lookups: Retrieve your list of lookupsAmount using the “get-topup-options” endpoint.\n\n4\\. Top-Up a Beneficiary:\n\no Generate: Idempotency Key: Write a unique idempotency key for the top-up request.\n\no Perform Top-Up: Use the Top-Up Beneficiary endpoint, including the lookup Id for the amount and idempotency key in the request to ensure that the operation is idempotent.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37285113"
+	},
+	"item": [
+		{
+			"name": "SecurityAPI",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"token\",pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"ahmad\",\r\n  \"password\": \"ahmad92\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"token\",pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"mohd\",\r\n  \"password\": \"mohd92\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "\\## Overview\n\nThe \\`SecurityService\\` is responsible for managing user authentication and registration within the system. It ensures secure access to other services by issuing and validating JWT tokens. This service is a critical component for maintaining the security and integrity of user sessions.\n\n\\## Responsibilities\n\n\\- **User Registration**: Allows new users to register by providing a username and password.  \n\\- **User Authentication**: Authenticates users by verifying their credentials and issuing JWT tokens.  \n\\- **User Session Management**: Manages user sessions by validating JWT tokens for secure communication with other services.",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "BalanceAPI",
+			"item": [
+				{
+					"name": "get-balance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Balance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "debit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "20",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Balance/debit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Balance",
+								"debit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "credit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "500",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Balance/credit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Balance",
+								"credit"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "\\## Overview\n\nThe \\`BalanceService\\` is responsible for managing user balances within the system. It provides endpoints for retrieving the current balance, debiting the balance, and crediting the balance. This service ensures secure and accurate balance operations, which are crucial for financial transactions in the system.\n\n\\## Responsibilities\n\n\\- **Retrieve Balance**: Allows retrieving the current balance of a user.  \n\\- **Debit Balance**: Deducts a specified amount from the user's balance.  \n\\- **Credit Balance**: Adds a specified amount to the user's balance.  \n\\- **Create User Balance**: Creates a new balance record for a user with an initial balance.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "TopUpAPI",
+			"item": [
+				{
+					"name": "beneficiaries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Beneficiaries",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Beneficiaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "beneficiaries",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nickname\": \"aymanAli2\",\r\n  \"phoneNumber\": \"5066887744\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Beneficiaries",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Beneficiaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "topup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"lookupAmountValueId\": 7,\r\n  \"beneficiaryId\": 3,\r\n  \"idempotencyKey\": \"yf55556asdjj01yy-55asf5a-xc46d999b432-vccsgfhv-2g56-asasd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Beneficiaries/topup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Beneficiaries",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-topup-options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Lookup/get-topup-options",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Lookup",
+								"get-topup-options"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "\\## Overview\n\nThe \\`TopUpService\\` is responsible for managing mobile top-up transactions for users. It allows users to add beneficiaries, view their beneficiaries, and top up their beneficiaries' mobile numbers. This service ensures that all top-up operations are securely handled and logged.\n\n\\## Responsibilities\n\n\\- **Manage Beneficiaries**: Allow users to add and view their top-up beneficiaries.  \n\\- **Top-Up Transactions**: Handle the top-up transactions for the beneficiaries.  \n\\- **Integration with BalanceService**: Check and debit user balances using the \\`BalanceService\\` before processing top-up transactions.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

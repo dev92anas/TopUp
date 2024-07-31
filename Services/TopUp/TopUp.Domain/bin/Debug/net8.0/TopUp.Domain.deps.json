@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "TopUp.Domain/1.0.0": {
+        "runtime": {
+          "TopUp.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TopUp.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

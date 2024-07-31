@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BalanceService.Application/1.0.0": {
+        "dependencies": {
+          "BalanceService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "BalanceService.Application.dll": {}
+        }
+      },
+      "BalanceService.Domain/1.0.0": {
+        "runtime": {
+          "BalanceService.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BalanceService.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BalanceService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
