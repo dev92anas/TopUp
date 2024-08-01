@@ -61,7 +61,7 @@ namespace TopUpService.Application.Services
         {
             try
             {
-                if (nickname.Length > 20)
+                if (!string.IsNullOrEmpty(nickname) && nickname.Length > 20)
                     throw new Exception("The Beneficiary nickname is not valid.");
 
                 var user = await _userRepository.GetUserByUsernameAsync(username);
@@ -90,6 +90,7 @@ namespace TopUpService.Application.Services
 
         public async Task TopUpBeneficiaryAsync(string username, int beneficiaryId, int lookupAmountValueId, string idempotencyKey)
         {
+            /// hold database transaction for the hole proccess
             using var transaction = await _context.Database.BeginTransactionAsync();
             bool debitSuccessful = false;
             decimal rollbackAmount = decimal.Zero;
