@@ -61,7 +61,7 @@ namespace TopUpService.Application.Services
         {
             try
             {
-                if (!string.IsNullOrEmpty(nickname) || nickname.Length > 20)
+                if (string.IsNullOrEmpty(nickname) || nickname.Length > 20)
                     throw new Exception("The Beneficiary nickname is not valid.");
 
                 var user = await _userRepository.GetUserByUsernameAsync(username);
