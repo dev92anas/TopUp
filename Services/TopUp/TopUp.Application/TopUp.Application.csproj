@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TopUp.Domain\TopUp.Domain.csproj" />
-    <ProjectReference Include="..\TopUp.Infrastructure\TopUp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

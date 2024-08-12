@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TopUp.Application\TopUp.Application.csproj" />
+    <ProjectReference Include="..\TopUp.Infrastructure\TopUp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

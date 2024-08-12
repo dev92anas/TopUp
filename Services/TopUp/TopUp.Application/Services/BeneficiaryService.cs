@@ -6,7 +6,6 @@ using TopUp.Domain.Interfaces;
 using TopUp.Application.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
-using TopUp.Infrastructure.Data;
 
 namespace TopUpService.Application.Services
 {
@@ -19,15 +18,13 @@ namespace TopUpService.Application.Services
         private readonly ILogger<BeneficiaryService> _logger;
         IExternalBalanceService _externalBalanceService;
         private readonly IConfiguration _configuration;
-        private readonly TopUpDbContext _context;
         public BeneficiaryService(IBeneficiaryRepository beneficiaryRepository,
                                   ITopUpTransactionRepository topUpTransactionRepository,
                                   ILookupsRepository lookupRepository,
                                   ILogger<BeneficiaryService> logger,
                                   IUserRepository userRepository,
                                   IExternalBalanceService externalBalanceService,
-                                  IConfiguration configuration,
-                                  TopUpDbContext context)
+                                  IConfiguration configuration)
         {
             _beneficiaryRepository = beneficiaryRepository;
             _topUpTransactionRepository = topUpTransactionRepository;
@@ -36,7 +33,6 @@ namespace TopUpService.Application.Services
             _userRepository = userRepository;
             _externalBalanceService = externalBalanceService;
             _configuration = configuration;
-            _context = context;
         }
 
         public async Task<IEnumerable<Beneficiary>> GetBeneficiariesAsync(string username)
@@ -90,8 +86,7 @@ namespace TopUpService.Application.Services
 
         public async Task TopUpBeneficiaryAsync(string username, int beneficiaryId, int lookupAmountValueId, string idempotencyKey)
         {
-            /// hold database transaction for the hole proccess
-            using var transaction = await _context.Database.BeginTransactionAsync();
+
             bool debitSuccessful = false;
             decimal rollbackAmount = decimal.Zero;
 
@@ -162,14 +157,9 @@ namespace TopUpService.Application.Services
                 // save the transaction
                 await _topUpTransactionRepository.AddAsync(topUpTransaction);
 
-                await transaction.CommitAsync();
-
             }
             catch (Exception ex)
             {
-                /// rollback the transaction if failure
-                await transaction.RollbackAsync();
-
                 if (debitSuccessful && rollbackAmount > 0)
                 {
                     // if topUp transaction faild, refund the user ---> i recommend to use async messaging (rabbitMQ, azure serviceBus....etc)

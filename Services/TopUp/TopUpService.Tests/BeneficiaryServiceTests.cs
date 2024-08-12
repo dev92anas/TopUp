@@ -6,7 +6,6 @@ using Moq;
 using TopUp.Application.ExternalServices;
 using TopUp.Domain.Entities;
 using TopUp.Domain.Interfaces;
-using TopUp.Infrastructure.Data;
 using TopUpService.Application.Services;
 using Xunit;
 
@@ -21,7 +20,6 @@ namespace TopUpService.Tests
         private readonly Mock<IExternalBalanceService> _externalBalanceServiceMock;
         private readonly Mock<ILogger<BeneficiaryService>> _loggerMock;
         private readonly Mock<IConfiguration> _configurationMock;
-        private readonly TopUpDbContext _context;
         private readonly BeneficiaryService _beneficiaryService;
 
         public BeneficiaryServiceTests()
@@ -34,12 +32,6 @@ namespace TopUpService.Tests
             _loggerMock = new Mock<ILogger<BeneficiaryService>>();
             _configurationMock = new Mock<IConfiguration>();
 
-            var options = new DbContextOptionsBuilder<TopUpDbContext>()
-                .UseInMemoryDatabase(databaseName: "TopUpTestDb")
-                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning))
-                .Options;
-            _context = new TopUpDbContext(options);
-
             _beneficiaryService = new BeneficiaryService(
                 _beneficiaryRepositoryMock.Object,
                 _topUpTransactionRepositoryMock.Object,
@@ -47,8 +39,7 @@ namespace TopUpService.Tests
                 _loggerMock.Object,
                 _userRepositoryMock.Object,
                 _externalBalanceServiceMock.Object,
-                _configurationMock.Object,
-                _context
+                _configurationMock.Object
             );
         }
 
